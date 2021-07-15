@@ -6,7 +6,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: 120px auto 100px;
-}
+} 
 .main-body {
   display: grid;
   overflow: auto;
@@ -26,7 +26,7 @@
 .close {
   background-color: transparent;
   border: none;
-  color: white;
+  color: var(--theme-close-button);
   span {
     font-size: 46px;
   }

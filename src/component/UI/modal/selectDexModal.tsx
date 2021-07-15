@@ -12,7 +12,7 @@ const SelectDexModal = (props) => {
   return (
     <div>
       <Modal className={`model-switch-${data.theme}`} {...props} centered>
-        <Modal.Header
+        <Modal.Header closeButton
           className="custom-coin-modal"
           style={{ borderBottom: "0" }}
         >

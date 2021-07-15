@@ -27,8 +27,8 @@ const ConnectWalletModal = (props) => {
                 props.onHide();
               }}
             >
-              <img src={wallet.logo} alt="" className="wallet-logo" />
-              <div style={{ paddingLeft: "20px" }}>{wallet.walletName}</div>
+              <img src={wallet.logo} alt="" />
+              <div>{wallet.walletName.toUpperCase()}</div>
             </Button>
           ))}
         </Modal.Body>

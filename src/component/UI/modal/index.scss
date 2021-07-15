@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height:300px;
 }
 
 .modal-content {
@@ -16,14 +17,12 @@
     color: #fff;
   }
 }
-
 .model-switch-light {
   .modal-content {
     background-color: #fff;
     color: black;
   }
 }
-
 .metamask-logo {
   width: 35px;
   height: 40px;
@@ -40,15 +39,15 @@
     rgba(25, 116, 94, 0.189) 3.25%,
     rgba(0, 219, 168, 0.3) 122.38%
   );
-
-  height: 5rem;
-  width: 300px;
+  height: 6rem;
+  width: 400px;
+  border-radius: 10px;
 
   border: 0px solid #215355;
   cursor: pointer;
 
-  margin: 1rem 0;
-  padding: 0 2rem;
+  margin: 1.4rem 0;
+  padding: 0 2.1rem;
 
   &:hover,
   &:active,
@@ -61,8 +60,11 @@
   }
 
   img {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 100px;
+  }
+  div{
+    font-size: 1.5rem;
   }
 }
 

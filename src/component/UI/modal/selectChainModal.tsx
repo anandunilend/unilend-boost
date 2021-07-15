@@ -11,7 +11,7 @@ const SelectChainModal = (props) => {
   const { handleChainChange } = useContext(WalletContext);
   return (
     <div>
-      <Modal className={`model-switch-${data.theme}`} {...props} centered>
+      <Modal size="md" className={`model-switch-${data.theme}`} {...props} centered>
         <Modal.Header closeButton style={{ borderBottom: "0" }}>
           <Modal.Title className="selectchain-title">Select Chain</Modal.Title>
           {/* <div >X</div> */}
