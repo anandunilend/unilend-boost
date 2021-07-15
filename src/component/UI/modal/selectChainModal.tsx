@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "context/themeContext";
 
-import { Modal, Row, Col } from "react-bootstrap";
+import { Modal,} from "react-bootstrap";
 import "./index.scss";
 import { chainList } from "common";
 import { WalletContext } from "context/connectWallet/connectWalletContext";
@@ -11,7 +11,7 @@ const SelectChainModal = (props) => {
   const { handleChainChange } = useContext(WalletContext);
   return (
     <div>
-      <Modal size="md" className={`model-switch-${data.theme}`} {...props} centered>
+      <Modal size="lg" className={`model-switch-${data.theme}`} {...props} centered>
         <Modal.Header closeButton style={{ borderBottom: "0" }}>
           <Modal.Title className="selectchain-title">Select Chain</Modal.Title>
           {/* <div >X</div> */}
