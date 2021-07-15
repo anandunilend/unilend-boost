@@ -1,13 +1,16 @@
-import { FC } from "react";
+import { FC,useContext } from "react";
 import { Card } from "react-bootstrap";
 import SelectCoin from "./selectCoin";
-
+import { WalletContext } from "context/connectWallet/connectWalletContext";
 import SelectDex from "./selectDex";
 import TransactionCard from "./transactionCard";
 
 const MainCard: FC = (props) => {
+  const { networkMessage } = useContext(WalletContext);
+
   return (
     <Card className={`paper`}>
+    <div className={`network-message`}>{networkMessage()}</div>
       <Card.Body className={`custom-card-body`}>
         <Card className={`custom-card`}>
           <Card.Body>

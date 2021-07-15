@@ -11,8 +11,7 @@ import { shortenAddress } from "Helpers";
 
 const NavBar = () => {
   const data: any = useContext(ThemeContext);
-  const { connectedAccount, selectedChain, isConnecting } =
-    useContext(WalletContext);
+  const { connectedAccount, selectedChain, isConnecting } = useContext(WalletContext);
   const [modalShow, setModalShow] = useState(false);
   const [selectChainModalShow, setSelectChainModalShow] = useState(false);
 

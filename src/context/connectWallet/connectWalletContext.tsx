@@ -86,7 +86,22 @@ export default function WalletProvider(props) {
     }
   };
 
-  const handleChainChange = (id: any) => {
+
+  const networkMessage = () => {
+    // let accounts;
+    // if(accounts.length){
+      if((selectedNetwork.id !== 1 || selectedNetwork.id !== 3) && selectedChain.id === 1){
+        return `Please switch your Network to Ethereum.`;
+      } else if ((selectedNetwork.id !== 56 || selectedNetwork.id !== 97) && selectedChain.id === 2){
+        return `Please switch your Network to Binance`;
+      }else if ((selectedNetwork.id !== 80001 || selectedNetwork.id !== 137) && selectedChain.id === 3){
+        return `Please switch your Network to Polygen`;
+      }
+    // }
+  };  
+  console.log("network msg ",networkMessage());
+
+  const handleChainChange = (id: any) => { 
     let _chain: any = chainList.find((list) => list.id === id);
     if (_chain) {
       setSelectedChain(_chain);
@@ -329,6 +344,7 @@ export default function WalletProvider(props) {
         handleConnect,
         selectedChain,
         handleChainChange,
+        networkMessage
       }}
     >
       {props.children}

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import MedianLight from "assets/median.svg";
 import MedianDark from "assets/medianDark.svg";
 import TwitterLight from "assets/twitter.svg";
