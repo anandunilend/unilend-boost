@@ -66,11 +66,17 @@
 }
 
 .custom-card-body {
-  // display: grid;
   display: grid;
   grid-gap: 15px;
   height: 100%;
   grid-template-rows: 160px 120px auto;
+}
+
+.network-message {
+  text-align: center;
+  font-weight: 500;
+  margin: 20px 20px 0px;
+  color: var(--theme-field-color);
 }
 
 .settings {
