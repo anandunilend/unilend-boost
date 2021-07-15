@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import web3, { connectWalletProvider, connectWalletWeb3 } from "ethereum/web3";
@@ -24,14 +25,66 @@ export default function WalletProvider(props) {
       ? chainList.find((list) => list.id === _cookie)
       : chainList[0];
   });
+  const [selectedNetwork, setSelectedNetwork] = useState<any>({
+    id: 1,
+    name: "Mainnet",
+  });
   const [walletProvider, setWalletProvider] = useState({
     currentProvider: web3,
     provider: EthProvider,
   });
 
   useEffect(() => {
+    if (isConnected) networkSwitchHandling();
+  }, [isConnected]);
+
+  useEffect(() => {
     if (connectedWallet) handleConnect(connectedWallet);
   }, [selectedChain, connectedWallet]);
+
+  const checkNet = (net: any) => {
+    switch (net) {
+      case 1:
+        return "Mainnet";
+      case 42:
+        return "Kovan";
+      case 3:
+        return "Ropsten";
+      case 4:
+        return "RinkeBy";
+      case 5:
+        return "Goerli";
+      case 56:
+        return "Binance Mainnet";
+      case 97:
+        return "Binance Testnet";
+      case 80001:
+        return "Mumbai Testnet";
+      case 137:
+        return "Matic Mainnet";
+      default:
+        return "Localhost";
+    }
+  };
+
+  const networkSwitchHandling = async (id?: any) => {
+    await walletProvider.currentProvider.eth.net.getId().then((res: any) => {
+      let accsName = checkNet(res);
+      console.log(accsName);
+      setSelectedNetwork({
+        id: res,
+        name: accsName,
+      });
+    });
+    if (id) {
+      let accsName = checkNet(id);
+      console.log(id, accsName);
+      setSelectedNetwork({
+        id: id,
+        name: accsName,
+      });
+    }
+  };
 
   const handleChainChange = (id: any) => {
     let _chain: any = chainList.find((list) => list.id === id);
