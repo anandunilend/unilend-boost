@@ -73,6 +73,10 @@
    } 
    .custom-coin-search {
     width: 50vw;
+    input,select,textarea{
+      color:white;
+    }
+    
   }
   .selectcoin-list{
     width: 60%;
