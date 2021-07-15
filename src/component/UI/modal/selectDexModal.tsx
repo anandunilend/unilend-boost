@@ -24,8 +24,16 @@ const SelectDexModal = (props) => {
 
   return (
     <div>
-      <Modal className={`model-switch-${data.theme}`} {...props} centered>
-        <Modal.Header 
+      <Modal
+        className={`model-switch-${data.theme}`}
+        onHide={() => {
+          props.handleHide();
+          setFilteredList(dexList);
+        }}
+        {...props}
+        centered
+      >
+        <Modal.Header
           className="custom-coin-modal"
           style={{ borderBottom: "0" }}
         >

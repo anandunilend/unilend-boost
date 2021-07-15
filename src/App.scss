@@ -6,7 +6,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: 120px auto 100px;
-} 
+}
 .main-body {
   display: grid;
   overflow: auto;
@@ -46,7 +46,6 @@
   background-color: var(--theme-paper-bg);
   box-shadow: 5px 5px 10px rgba(1, 9, 30, 0.2);
   border-radius: 14px;
-  padding:1rem 2rem;
 }
 
 .input-card {
@@ -58,6 +57,7 @@
     color: inherit;
     height: 50px;
     font-size: 1.5rem;
+    width: 100%;
     &:focus-visible {
       border: none;
       outline: 0;
