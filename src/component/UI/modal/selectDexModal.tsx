@@ -37,6 +37,7 @@ const SelectDexModal = (props) => {
                 className="list-col"
                 onClick={() => {
                   props.handleDexChange(list.id);
+                  setSearchDex("");
                 }}
               >
                 <img src={VectorImg} />
