@@ -5,18 +5,24 @@ import BinanceLogo from "assets/binance.svg";
 import PolygonLogo from "assets/polygonmaticLogo.svg";
 
 export const walletList = (chain: any) => {
-  return [
+  let list = [
     {
       id: 1,
       walletName: "Metamask",
       logo: MetamaskLogo,
     },
-    {
-      id: 2,
-      walletName: "WalletConnect",
-      logo: ConnectWalletLogo,
-    },
   ];
+
+  return chain === 1
+    ? [
+        ...list,
+        {
+          id: 2,
+          walletName: "WalletConnect",
+          logo: ConnectWalletLogo,
+        },
+      ]
+    : list;
 };
 
 export const chainList = [

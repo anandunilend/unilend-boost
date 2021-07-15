@@ -8,7 +8,7 @@ import { WalletContext } from "context/connectWallet/connectWalletContext";
 
 const ConnectWalletModal = (props) => {
   const data: any = useContext(ThemeContext);
-  const { handleConnect } = useContext(WalletContext);
+  const { handleConnect, selectedChain } = useContext(WalletContext);
   return (
     <div className={`${data.theme}`}>
       <Modal
@@ -18,8 +18,9 @@ const ConnectWalletModal = (props) => {
         size="md"
       >
         <Modal.Body className="custom-modalBody">
-          {walletList(1).map((wallet: any) => (
+          {walletList(selectedChain.id).map((wallet: any) => (
             <Button
+              key={wallet.id}
               className="custom-modal-btn"
               onClick={() => {
                 handleConnect(wallet);

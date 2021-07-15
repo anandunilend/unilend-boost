@@ -34,6 +34,7 @@ const SelectDexModal = (props) => {
               }
             }).map((list) => (
               <div
+                key={list.id}
                 className="list-col"
                 onClick={() => {
                   props.handleDexChange(list.id);

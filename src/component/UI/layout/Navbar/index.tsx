@@ -55,11 +55,11 @@ const NavBar = () => {
                   checkedIcon={false}
                   onColor="#fff"
                   offColor="#215355"
-                  onHandleColor="FED330"
+                  onHandleColor="#FED330"
                   offHandleColor="#071F21"
                   height={30}
                   width={55}
-                  className="react-switch"
+                  className="switch"
                 />
               </Nav>
             </Col>
