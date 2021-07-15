@@ -62,10 +62,11 @@
     &:hover {
       background-color: #04101198;
     }
-  }
+  } 
   .custom-search {
     background-color: #0d2e2f;
     border: 0px solid #0d2e2f;
+    color:white;
   }
 }
 @mixin modalContent() {

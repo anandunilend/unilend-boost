@@ -6,6 +6,7 @@
   .custom-coin-search {
     background-color: #071f21;
     border: 0px solid #071f21;
+    color:white;
   }
   .selectcoin-list {
     background-color: #071f21;
@@ -30,9 +31,10 @@
 }
 
 .custom-coin-search {
-  width: 25vw;
-  height: 7vh;
-  border-radius: 20px;
+  width: 35vw;
+  padding-left: 2rem;
+  height: 6.5vh;
+  border-radius: 30px;
   display: flex;
 }
 
@@ -73,10 +75,6 @@
    } 
    .custom-coin-search {
     width: 50vw;
-    input,select,textarea{
-      color:white;
-    }
-    
   }
   .selectcoin-list{
     width: 60%;
