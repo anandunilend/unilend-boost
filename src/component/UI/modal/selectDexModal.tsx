@@ -8,6 +8,7 @@ import { dexList } from "common";
 
 const SelectDexModal = (props) => {
   const data: any = useContext(ThemeContext);
+  const [searchDex,setSearchDex] = useState('');
 
   return (
     <div>
@@ -20,11 +21,18 @@ const SelectDexModal = (props) => {
             className="custom-search"
             type="text"
             placeholder="Search Dex"
+            onChange={ event => {setSearchDex(event.target.value)}}
           />
         </Modal.Header>
         <Modal.Body className="custom-row-body">
           <Row className="custom-row">
-            {dexList.map((list) => (
+            {dexList.filter((list) => {
+              if (searchDex == ""){
+                return list
+              }else if(list.name.toLowerCase().includes(searchDex.toLowerCase())){
+                return list
+              }
+            }).map((list) => (
               <div
                 className="list-col"
                 onClick={() => {
