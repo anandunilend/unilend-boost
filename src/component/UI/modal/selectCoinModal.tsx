@@ -18,15 +18,23 @@ const SelectCoinModal = (props) => {
       console.log(filtered);
       setFilteredList(filtered);
     } else {
+      setSearchCoin("");
       setFilteredList(coinList);
     }
   }, [searchCoin]);
+  useEffect(() => {
+    return () => console.log("close");
+  }, []);
   return (
     <div>
       <Modal
         size="xl"
         className={`modal-coin-${data.theme}`}
-        {...props}
+        onHide={() => {
+          props.handleHide();
+          setFilteredList(coinList);
+        }}
+        show={props.show}
         centered
       >
         <Modal.Header closeButton style={{ borderBottom: "0" }}>

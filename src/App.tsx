@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Cookies from "js-cookie";
 
 import { ThemeContext } from "context/themeContext";

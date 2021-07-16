@@ -34,7 +34,7 @@ const SelectCoin: FC = (props) => {
       </div>
       <SelectCoinModal
         show={showCoinModal}
-        onHide={() => setShowCoinModal(false)}
+        handleHide={() => setShowCoinModal(false)}
         handleCoinChange={(id) => handleCoinChange(id)}
       />
     </>

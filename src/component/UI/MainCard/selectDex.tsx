@@ -11,7 +11,7 @@ import {
 } from "utils/asserts";
 import VectorImg from "assets/Vector.svg";
 import SelectDexModal from "../modal/selectDexModal";
-import 'component/UI/modal/dexModel.scss';
+import "component/UI/modal/dexModel.scss";
 
 const SelectDex = () => {
   const data: any = useContext(ThemeContext);
@@ -42,15 +42,23 @@ const SelectDex = () => {
           height="20px"
         />
         <Button className="switch-btn" onClick={() => setDexModalShow(true)}>
-            {selectedDex ? 
-            <span >
-              <img alt="Logo" src={VectorImg} className="custom-selectdex-logo" /> 
-             {selectedDex.name} </span> : "Select DEX"}
+          {selectedDex ? (
+            <span>
+              <img
+                alt="Logo"
+                src={VectorImg}
+                className="custom-selectdex-logo"
+              />
+              {selectedDex.name}{" "}
+            </span>
+          ) : (
+            "Select DEX"
+          )}
         </Button>
       </div>
       <SelectDexModal
         show={dexModalShow}
-        onHide={() => setDexModalShow(false)}
+        handleHide={() => setDexModalShow(false)}
         handleDexChange={(id) => handleDexChange(id)}
       />
     </>

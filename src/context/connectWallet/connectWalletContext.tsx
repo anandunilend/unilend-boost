@@ -17,14 +17,15 @@ export default function WalletProvider(props) {
     let _cache = Cookies.getJSON("wallet");
     return _cache ? _cache : null;
   });
-  const [isConnecting, toggleConnecting] = useState<boolean>(false);
-  const [connectedAccount, setConnectedAccount] = useState<string>();
   const [selectedChain, setSelectedChain] = useState<any>(() => {
     let _cookie = Cookies.getJSON("selectedChain");
     return _cookie
       ? chainList.find((list) => list.id === _cookie)
       : chainList[0];
   });
+  const [isConnecting, toggleConnecting] = useState<boolean>(false);
+  const [connectedAccount, setConnectedAccount] = useState<string>();
+  const [networkError, setNetworkError] = useState<string>("");
   const [selectedNetwork, setSelectedNetwork] = useState<any>({
     id: 1,
     name: "Mainnet",
@@ -36,11 +37,12 @@ export default function WalletProvider(props) {
 
   useEffect(() => {
     if (isConnected) networkSwitchHandling();
+    Cookies.set("isConnected", isConnected);
   }, [isConnected]);
 
   useEffect(() => {
-    if (connectedWallet) handleConnect(connectedWallet);
-  }, [selectedChain, connectedWallet]);
+    if (isConnected) handleConnect(connectedWallet);
+  }, [selectedChain, connectedWallet, isConnected]);
 
   const checkNet = (net: any) => {
     switch (net) {
@@ -68,21 +70,50 @@ export default function WalletProvider(props) {
   };
 
   const networkSwitchHandling = async (id?: any) => {
-    await walletProvider.currentProvider.eth.net.getId().then((res: any) => {
-      let accsName = checkNet(res);
-      console.log(accsName);
-      setSelectedNetwork({
-        id: res,
-        name: accsName,
-      });
-    });
     if (id) {
       let accsName = checkNet(id);
-      console.log(id, accsName);
       setSelectedNetwork({
         id: id,
         name: accsName,
       });
+    } else {
+      await walletProvider.currentProvider.eth.net.getId().then((res: any) => {
+        let accsName = checkNet(res);
+        setSelectedNetwork({
+          id: res,
+          name: accsName,
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    networkMessage();
+  }, [isConnected, selectedNetwork, selectedChain]);
+
+  const networkMessage = () => {
+    if (isConnected) {
+      if (
+        selectedNetwork.id !== 1 &&
+        selectedNetwork.id !== 3 &&
+        selectedChain.id === 1
+      ) {
+        setNetworkError(`Please switch your Network to Ethereum.`);
+      } else if (
+        selectedNetwork.id !== 56 &&
+        selectedNetwork.id !== 97 &&
+        selectedChain.id === 2
+      ) {
+        setNetworkError(`Please switch your Network to Binance`);
+      } else if (
+        selectedNetwork.id !== 80001 &&
+        selectedNetwork.id !== 137 &&
+        selectedChain.id === 3
+      ) {
+        setNetworkError(`Please switch your Network to Polygen`);
+      } else {
+        setNetworkError("");
+      }
     }
   };
 
@@ -132,12 +163,7 @@ export default function WalletProvider(props) {
   };
 
   const handleMetamask = (accounts: any, currentProvider: any) => {
-    console.log("handling");
-    if (
-      window &&
-      !(window as any).ethereum.selectedAddress &&
-      accounts.length <= 0
-    ) {
+    if (window && (window as any).ethereum.selectedAddress) {
       (window as any).ethereum
         .enable()
         .then(() => {
@@ -148,6 +174,7 @@ export default function WalletProvider(props) {
               getAccountBalance(res[0], currentProvider);
               metamaskEventHandler((window as any).ethereum);
               toggleConnecting(false);
+              toggleConnected(true);
             })
             .catch((e: any) => {
               console.log(e);
@@ -162,6 +189,7 @@ export default function WalletProvider(props) {
       setConnectedAccount(accounts[0]);
 
       getAccountBalance(accounts[0], currentProvider);
+      toggleConnected(true);
 
       metamaskEventHandler((window as any).ethereum);
       toggleConnecting(false);
@@ -169,7 +197,6 @@ export default function WalletProvider(props) {
   };
 
   const handleConnect = (wallet: any) => {
-    console.log("wallet", wallet);
     toggleConnecting(true);
     Cookies.set("wallet", wallet);
     setConnectedWallet(wallet);
@@ -199,7 +226,6 @@ export default function WalletProvider(props) {
     } catch (e) {
       toggleConnecting(false);
     }
-    console.log(wallet);
   };
 
   const handleWallet = async (provider: any, selectedWallet: any) => {
@@ -208,7 +234,6 @@ export default function WalletProvider(props) {
       case "Metamask":
         if (selectedChain.id === 1) {
           accounts = await web3Service.getAccounts();
-          console.log("accounts", accounts);
           handleMetamask(accounts, provider);
         } else if (selectedChain.id === 2) {
           try {
@@ -236,14 +261,12 @@ export default function WalletProvider(props) {
                   ],
                 });
                 accounts = await web3Service.getAccounts();
-
                 // if (accounts) {
                 handleMetamask(accounts, provider);
                 // }
-
-                return true;
+                // return true;
               } catch (error) {
-                console.error(error);
+                console.error("error", error);
 
                 return false;
               }
@@ -329,6 +352,7 @@ export default function WalletProvider(props) {
         handleConnect,
         selectedChain,
         handleChainChange,
+        networkError,
       }}
     >
       {props.children}

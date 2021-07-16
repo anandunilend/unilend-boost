@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "context/themeContext";
 
-import { Modal, Row, Col } from "react-bootstrap";
+import { Modal,} from "react-bootstrap";
 import "./index.scss";
 import { chainList } from "common";
 import { WalletContext } from "context/connectWallet/connectWalletContext";
