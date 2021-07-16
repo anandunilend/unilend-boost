@@ -47,10 +47,13 @@
   box-shadow: 5px 5px 10px rgba(1, 9, 30, 0.2);
   border-radius: 14px;
 }
-
+.transactionHeader{
+  margin: 0.5rem 1rem;
+}
 .input-card {
   background: var(--theme-switch-button-bg);
   border-radius: 23px;
+  margin:0rem 1rem;
   input {
     background: transparent;
     border: none;
@@ -104,7 +107,6 @@
   @include select();
   grid-template-columns: 1fr 120px 150px;
   height: 85px;
-  padding-bottom: 2rem;
 }
 
 .liquidity {

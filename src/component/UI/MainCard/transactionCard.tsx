@@ -5,7 +5,7 @@ const TransactionCard: FC = (props) => {
   return (
     <>
       <div className={`transactionCard`}>
-        <h3>Amount</h3>
+        <h3 className="transactionHeader">Amount</h3>
         <Card className={`input-card`}>
           <Card.Body>
             <div className={`transactionBody`}>
