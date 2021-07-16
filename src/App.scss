@@ -97,8 +97,8 @@
 .selectCoin {
   @include select();
   grid-template-columns: 1fr 120px 150px;
-
   height: 85px;
+  padding-bottom: 2rem;
 }
 
 .liquidity {

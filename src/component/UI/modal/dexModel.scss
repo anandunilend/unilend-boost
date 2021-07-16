@@ -11,7 +11,7 @@
   position: absolute;
   background-color: #fff;
   border-radius: 15px;
-  padding-bottom: 2.5rem;
+  padding-bottom: 4rem;
 }
 
 .custom-search {
@@ -57,6 +57,7 @@
 .model-switch-dark {
   .modal-content {
     background-color: #061b1d;
+    padding-top: 1.5rem;
   }
   .list-col {
     &:hover {
@@ -84,7 +85,6 @@
 .modal-coin-light {
   .modal-content {
     @include modalContent();
-
     background-color: transparent;
   }
 }
