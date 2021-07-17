@@ -16,12 +16,19 @@ BigNumber.config({
 
 function App() {
   const data: any = useContext(ThemeContext);
-  const { handleConnect } = useContext(WalletContext);
+  const { handleConnect,searchToken } = useContext(WalletContext);
 
   useEffect(() => {
     let wallet = Cookies.getJSON("wallet");
     if (wallet) {
       handleConnect(wallet);
+    }
+  }, []);
+
+  useEffect(() => {
+    let searchCustomToken = Cookies.getJSON("searchCustomToken");
+    if (searchCustomToken) {
+      searchToken(searchCustomToken);
     }
   }, []);
 

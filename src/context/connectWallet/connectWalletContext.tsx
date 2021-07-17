@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import web3, { connectWalletProvider, connectWalletWeb3 } from "ethereum/web3";
 import { web3Service } from "ethereum/web3Service";
 import { chainList } from "common";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 let EthProvider = (window as any).ethereum;
 
 export const WalletContext = createContext<any>(null);
@@ -34,6 +36,12 @@ export default function WalletProvider(props) {
     currentProvider: web3,
     provider: EthProvider,
   });
+  const [address, setAddress] = useState<any>();
+  const [searchCustomToken, setSearchCustomToken] = useState<any>(() => {
+    let _cache = Cookies.getJSON("searchCustomToken");
+    return _cache ? _cache : null;
+  });
+  const [customCoin, setCustomCoin] = useState<string[]>([]);
 
   useEffect(() => {
     if (isConnected) networkSwitchHandling();
@@ -43,6 +51,13 @@ export default function WalletProvider(props) {
   useEffect(() => {
     if (isConnected) handleConnect(connectedWallet);
   }, [selectedChain, connectedWallet, isConnected]);
+
+  useEffect(() => {
+    Cookies.set("address", address);
+    searchToken(address);
+    setCustomCoin(searchCustomToken);
+    // console.log("searchCustomTokensearchCustomTokensearchCustomToken",setCustomCoin);
+  }, [address,searchCustomToken,customCoin]);
 
   const checkNet = (net: any) => {
     switch (net) {
@@ -69,6 +84,46 @@ export default function WalletProvider(props) {
     }
   };
 
+  
+ 
+  const searchToken = (address: any) => {
+    const data = {
+      jsonrpc: "2.0",
+      method: "alchemy_getTokenMetadata",
+      params: [`${address}`],
+      id: uuidv4(),
+    };
+    axios
+      .post(
+        "https://eth-mainnet.alchemyapi.io/v2/maI7ecducWmnh8z5s2B1H2G4KzHkHMtb",
+        JSON.stringify(data)
+      )
+      .then((res: any) => {
+        // console.log(res);
+        if (res?.data?.result)
+          {
+           setSearchCustomToken(res.data.result);
+           Cookies.set("searchCustomToken", searchCustomToken);
+          //  console.log("setSearchCustomToken",searchCustomToken);
+          }
+      })
+      .catch((e: any) => {
+        // console.log(e,"Token address doesn't exist");
+      });
+  };
+ 
+  const handleCustomCoins = () => {
+    if (Cookies.getItem("customCoin")) {
+      let res: any = Cookies.getItem("customCoin");
+      setCustomCoin(JSON.parse(res));
+      console.log("setCustomCoin",customCoin);
+      // payload: JSON.parse(_parsed),
+    }
+};
+
+// const setCustomToken = (tokens: any, type: any) => {
+  
+// };
   const networkSwitchHandling = async (id?: any) => {
     if (id) {
       let accsName = checkNet(id);
@@ -343,6 +398,34 @@ export default function WalletProvider(props) {
     }
   };
 
+  
+
+//  const handleTokenPersist = (token: any) => {
+//     let _allToken: any = [];
+//     if (localStorage.getItem("tokenGroup")) {
+//       let tg: any = localStorage.getItem("tokenGroup");
+//       let parsed = JSON.parse(tg);
+//       // parsed
+//     } else {
+//       // localStorage.getItem("tokenGroup");
+//       token.forEach((item) => {
+//         axios.get(item.url).then((res) => {
+//           _allToken.push({
+//             id: uuidv4(),
+//             name: res.data.name,
+//             icon: res.data.logoURI,
+//             token: res.data.tokens.length,
+//             fetchURI: item.url,
+//             isEnabled: item.isEnabled,
+//           });
+//           // payload: _allToken,
+//         });
+//       });
+//     }
+// };
+
+
+
   return (
     <WalletContext.Provider
       value={{
@@ -353,6 +436,10 @@ export default function WalletProvider(props) {
         selectedChain,
         handleChainChange,
         networkError,
+        searchToken,
+        setAddress,
+        searchCustomToken,
+        setCustomCoin,handleCustomCoins
       }}
     >
       {props.children}
