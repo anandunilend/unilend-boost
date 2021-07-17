@@ -9,9 +9,11 @@ const SelectCoin: FC = (props) => {
   const [selectedCoin, setSelectedCoin] = useState<any>();
 
   const handleCoinChange = (id: number) => {
-    setSelectedCoin(coinList.find((item) => item.id === id));
+    setSelectedCoin(coinList.find((item) => item.id === id) );
     setShowCoinModal(false);
+    
   };
+
   return (
     <>
       <div className={`selectCoin`}>

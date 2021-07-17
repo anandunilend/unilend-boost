@@ -62,7 +62,8 @@ export const coinList = [
   {
     id: 1,
     name: "ETH",
-    cost: "20.45"
+    cost: "20.45",
+    address: '0X123'
   },
   {
     id: 2,
